@@ -57,7 +57,6 @@ function doInterfaces(configData) {
       // vlans
       var td = $("<td>");
       var vlans = intf.vlans.split(',');
-      console.log(vlans);
       
       for (let i = 0; i < vlans.length; i++) {
         let vlan = vlans[i].trim();

@@ -28,7 +28,9 @@
     <p>Paste your Cisco-IOS config:</p>
     <p style="color: brown;">Config processing happens entirely on client side. Paste with peace of mind!</p>
     <textarea id="inputField"></textarea>
-    <button id="submitBtn">Parse</button>
+    <button id="submitBtn">Submit</button>
+    <br><br>
+    <div class="text-center"><a href="#" id="example">Try an example config!</a></div>
   </div>
   <div id="overlay" class="overlay"></div>
 
@@ -49,6 +51,7 @@
                 <button>Interfaces</button>
                 <button>Port Channels</button>
                 <button>Details</button>
+                <!-- <button>Live View</button> -->
               </nav>
             </div>
           </div>
@@ -56,7 +59,6 @@
 
         <section id="section-vlans">
           <h4>VLANs</h4>
-          <p>Note: VLAN IDs that are applied to interfaces as an element within a range of vlans will not alert as not applied.</p>
           <table class="table">
             <thead>
               <tr>
@@ -93,7 +95,7 @@
 
         <section id="section-portchannels">
           <h4>Port Channels</h4>
-          <p>Note: Port channels that have vlan ranged added to them will not be cross checked with VLAN declarations.</p>
+          <p>Note: Port channel members' vlans are not cross referenced to their trunked vlans.</p>
           <table class="table">
             <thead>
               <tr>
@@ -118,6 +120,10 @@
             <h4>Configuration Details</h4>
             <tbody id="config"></tbody>
           </table>
+        </section>
+
+        <section id="section-liveview">
+          <!-- Add to DOM here -->
         </section>
 
       </div>
