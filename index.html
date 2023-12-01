@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>ConfigConsult.com</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="dialog.css">
+  <script src="dialog.js"></script>
+  <script src="buttons.js"></script>
+  <script src="main.js"></script>
+  <script src="populateVLANs.js"></script>
+  <script src="populateInterfaces.js"></script>
+  <script src="populateChannels.js"></script>
+</head>
+
+<body>
+
+  <div id="dialogBox">
+    <p>Paste your Cisco-IOS config:</p>
+    <p style="color: brown;">Config processing happens entirely on client side. Paste with peace of mind!</p>
+    <textarea id="inputField"></textarea>
+    <button id="submitBtn">Submit</button>
+  </div>
+  <div id="overlay" class="overlay"></div>
+
+  <div id="mainContent" class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-6">
+              <h2 style="display: inline;">ConfigConsult.com</h2><span> by Adam Spera</span>
+              <div></div>
+              <a href="https://github.com/AdamSpera/config-consult">Check us out on GitHub!</a>
+            </div>
+            <div class="col-6">
+              <nav style="margin-top: 15px;">
+                <button>VLANs</button>
+                <button>Interfaces</button>
+                <button>Port Channels</button>
+              </nav>
+            </div>
+          </div>
+        <br>
+
+        <section id="section-vlans">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>VLAN #</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Add to DOM here -->
+            </tbody>
+          </table>
+        </section>
+
+        <section id="section-interfaces">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Interface</th>
+                <th>Description</th>
+                <th>Mode</th>
+                <th>Address</th>
+                <th>VLANs</th>
+                <th>PChannel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Add to DOM here -->
+            </tbody>
+          </table>
+        </section>
+
+        <section id="section-portchannels">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Interface</th>
+                <th>Description</th>
+                <th>VLANs</th>
+                <th>Members</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Add to DOM here -->
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
