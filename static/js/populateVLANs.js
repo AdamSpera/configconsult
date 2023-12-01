@@ -109,7 +109,7 @@ function doVLANs(configData) {
         span.css('color', 'red');
         span.css('cursor', 'pointer');
         span.on('click', function () {
-          alert('VLAN ' + vlan.vlanId + ' is not applied to any interfaces.');
+          alert('VLAN ' + vlan.vlanId + ' is not explicitly (might still be within a range!) applied to any interfaces.');
         });
       }
       td.append(span.text(vlan.vlanId));
