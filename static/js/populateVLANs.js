@@ -82,21 +82,13 @@ function isVLANAppliedToInterface(configData, vlanNumber) {
       line = line.split('vlan ')[1];
 
       if (line.includes('add ')) {
-        line = line.split('add ')[1] + ',';
+        line = ',' + line.split('add ')[1] + ',';
       } else {
-        line = line + ',';
+        line = ',' + line + ',';
       }
 
-      const vlans = line.split(',');
-      for (let j = 0; j < vlans.length; j++) {
-        const vlanRange = vlans[j].split('-');
-        if (vlanRange.length === 2) {
-          const start = parseInt(vlanRange[0]);
-          const end = parseInt(vlanRange[1]);
-          if (vlan >= start && vlan <= end) return true;
-        } else if (vlans[j] === vlan) {
-          return true;
-        }
+      if (line.includes(',' + vlan + ',')) {
+        return true;
       }
     }
   }
@@ -114,7 +106,7 @@ function doVLANs(configData) {
       var row = $('<tr>');
       var td = $('<td>');
       var span = $('<span>');
-      if (!vlan.vlanId.includes('-') && !isVLANAppliedToInterface(configData, vlan)) {
+      if (!isVLANAppliedToInterface(configData, vlan) && !vlan.vlanId.includes('-')) {
         span.css('color', 'red');
         span.css('cursor', 'pointer');
         span.on('click', function () {
