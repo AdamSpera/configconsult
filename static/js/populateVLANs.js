@@ -82,17 +82,25 @@ function isVLANAppliedToInterface(configData, vlanNumber) {
       line = line.split('vlan ')[1];
 
       if (line.includes('add ')) {
-        line = ',' + line.split('add ')[1] + ',';
+        line = line.split('add ')[1] + ',';
       } else {
-        line = ',' + line + ',';
+        line = line + ',';
       }
 
-      if (line.includes(',' + vlan + ',')) {
-        return true;
+      const vlans = line.split(',');
+      for (let j = 0; j < vlans.length; j++) {
+        const vlanRange = vlans[j].split('-');
+        if (vlanRange.length === 2) {
+          const start = parseInt(vlanRange[0]);
+          const end = parseInt(vlanRange[1]);
+          if (vlan >= start && vlan <= end) return 2;
+        } else if (vlans[j] === vlan) {
+          return 1;
+        }
       }
     }
   }
-  return false;
+  return 0;
 }
 
 function doVLANs(configData) {
@@ -106,11 +114,18 @@ function doVLANs(configData) {
       var row = $('<tr>');
       var td = $('<td>');
       var span = $('<span>');
-      if (!isVLANAppliedToInterface(configData, vlan) && !vlan.vlanId.includes('-')) {
+      if (isVLANAppliedToInterface(configData, vlan) == 0) {
         span.css('color', 'red');
         span.css('cursor', 'pointer');
         span.on('click', function () {
           alert('VLAN ' + vlan.vlanId + ' is not applied to any interfaces or within any vlan ranges on any interfaces.');
+        });
+      }
+      if (isVLANAppliedToInterface(configData, vlan) == 2) {
+        span.css('color', 'orange');
+        span.css('cursor', 'pointer');
+        span.on('click', function () {
+          alert('VLAN ' + vlan.vlanId + ' is applied within a vlan range on an interface.');
         });
       }
       td.append(span.text(vlan.vlanId));
