@@ -18,6 +18,7 @@ $(document).ready(function () {
   $("#example").on("click", function () {
     $("#inputField").val(exampleConfig);
     $(this).off("click");
+    $('#submitBtn').click();
   });
 
 });
