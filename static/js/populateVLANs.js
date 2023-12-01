@@ -75,10 +75,10 @@ function getVLANStatus(config, vlanId) {
 
 function isVLANAppliedToInterface(configData, vlanNumber) {
   const lines = configData.split('\n');
-  vlan = vlanNumber.vlanId;
+  const vlan = vlanNumber.vlanId;
   for (let i = 0; i < lines.length; i++) {
     var line = lines[i].trim();
-    if ((line.includes('switchport trunk allowed vlan '))) {
+    if (line.includes('switchport trunk allowed vlan ')) {
       line = line.split('vlan ')[1];
 
       if (line.includes('add ')) {
@@ -87,8 +87,17 @@ function isVLANAppliedToInterface(configData, vlanNumber) {
         line = line + ',';
       }
 
-      console.log(vlan, '----', line);
-      if (line.includes(vlan + ',')) return true;
+      const vlans = line.split(',');
+      for (let j = 0; j < vlans.length; j++) {
+        const vlanRange = vlans[j].split('-');
+        if (vlanRange.length === 2) {
+          const start = parseInt(vlanRange[0]);
+          const end = parseInt(vlanRange[1]);
+          if (vlan >= start && vlan <= end) return true;
+        } else if (vlans[j] === vlan) {
+          return true;
+        }
+      }
     }
   }
   return false;
@@ -109,7 +118,7 @@ function doVLANs(configData) {
         span.css('color', 'red');
         span.css('cursor', 'pointer');
         span.on('click', function () {
-          alert('VLAN ' + vlan.vlanId + ' is not explicitly (might still be within a range!) applied to any interfaces.');
+          alert('VLAN ' + vlan.vlanId + ' is not applied to any interfaces or within any vlan ranges on any interfaces.');
         });
       }
       td.append(span.text(vlan.vlanId));
