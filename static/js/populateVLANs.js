@@ -73,6 +73,27 @@ function getVLANStatus(config, vlanId) {
   return status;
 }
 
+function isVLANAppliedToInterface(configData, vlanNumber) {
+  const lines = configData.split('\n');
+  vlan = vlanNumber.vlanId;
+  for (let i = 0; i < lines.length; i++) {
+    var line = lines[i].trim();
+    if ((line.includes('switchport trunk allowed vlan '))) {
+      line = line.split('vlan ')[1];
+
+      if (line.includes('add ')) {
+        line = line.split('add ')[1] + ',';
+      } else {
+        line = line + ',';
+      }
+
+      console.log(vlan, '----', line);
+      if (line.includes(vlan + ',')) return true;
+    }
+  }
+  return false;
+}
+
 function doVLANs(configData) {
 
   function logVLANs(vlanDetails, config) {
@@ -80,8 +101,20 @@ function doVLANs(configData) {
       const ipAddress = getVLANIPAddress(config, vlan.vlanId);
       const status = getVLANStatus(config, vlan.vlanId);
 
+      // vlan id
       var row = $('<tr>');
-      row.append('<td>' + vlan.vlanId + '</td>');
+      var td = $('<td>');
+      var span = $('<span>');
+      if (!vlan.vlanId.includes('-') && !isVLANAppliedToInterface(configData, vlan)) {
+        span.css('color', 'red');
+        span.css('cursor', 'pointer');
+        span.on('click', function () {
+          alert('VLAN ' + vlan.vlanId + ' is not applied to any interfaces.');
+        });
+      }
+      td.append(span.text(vlan.vlanId));
+      row.append(td.append(span));
+
       row.append('<td>' + vlan.vlanName + '</td>');
       row.append('<td>' + ipAddress + '</td>');
       row.append('<td>' + status + '</td>');
