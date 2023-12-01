@@ -56,6 +56,20 @@ There are two ways to run ConfigConsult.com:
 
 Please replace `<your-vm-ip>` with your VM's public IP address.
 
+## File Structure and Cloudflare Pages Hosting
+
+Our application has a slightly unusual file structure due to the way we host it on Cloudflare Pages. Here's a brief explanation:
+
+- `root/index.html`: This is the entry point of our application when hosted on Cloudflare Pages. It uses AJAX to fetch the content of `root/templates/index.html` and replace its own content with it. This allows us to host the application on Cloudflare Pages in the same repository without changing the file structure.
+
+- `root/templates/index.html`: This is the main HTML file of our application. It's fetched by `root/index.html` using AJAX when the application is hosted on Cloudflare Pages.
+
+Please note that when running the application locally or on a VM, Flask serves `root/templates/index.html` directly, and `root/index.html` is not used.
+
+Next steps:
+1. Run the application locally or on a VM following the instructions in the Setup section.
+2. Test the application on Cloudflare Pages by navigating to your Cloudflare Pages URL.
+
 ## Contributing
 
 We welcome contributions! Please reach out to Adam Spera on LinkedIn for more details!
