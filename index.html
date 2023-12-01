@@ -13,6 +13,7 @@
   <script src="dialog.js"></script>
   <script src="buttons.js"></script>
   <script src="main.js"></script>
+  <script src="populateDetails.js"></script>
   <script src="populateVLANs.js"></script>
   <script src="populateInterfaces.js"></script>
   <script src="populateChannels.js"></script>
@@ -44,6 +45,7 @@
                 <button>VLANs</button>
                 <button>Interfaces</button>
                 <button>Port Channels</button>
+                <button>Details</button>
               </nav>
             </div>
           </div>
@@ -96,6 +98,17 @@
             <tbody>
               <!-- Add to DOM here -->
             </tbody>
+          </table>
+        </section>
+
+        <section id="section-details">
+          <table class="table">
+            <h4>Device Details</h4>
+            <tbody id="device"></tbody>
+          </table>
+          <table class="table">
+            <h4>Configuration Details</h4>
+            <tbody id="config"></tbody>
           </table>
         </section>
 

@@ -8,6 +8,7 @@ $(document).ready(function () {
     $("#dialogBox").hide();
     $("#overlay").hide();
 
+    doDetails(configData);
     doVLANs(configData);
     doInterfaces(configData);
     doPortchannels(configData);
