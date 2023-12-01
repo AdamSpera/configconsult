@@ -57,16 +57,41 @@ function doInterfaces(configData) {
       // vlans
       var td = $("<td>");
       var vlans = intf.vlans.split(',');
-      for (var i = 0; i < vlans.length; i++) {
-        var vlan = vlans[i];
+      console.log(vlans);
+      
+      for (let i = 0; i < vlans.length; i++) {
+        let vlan = vlans[i].trim();
         if (vlan.includes('add ')) { vlan = vlan.split('add ')[1]; }
-        var span = $("<span>")
-        if (!configData.includes(`vlan ${vlan}\n`) && !vlan.includes('-')) { 
+      
+        let span = $("<span>")
+        if (vlan.includes('-')) {
+          let range = vlan.split('-');
+          let start = parseInt(range[0]);
+          let end = parseInt(range[1]);
+          let isYellow = false;
+          for (let j = start; j <= end; j++) {
+            if (!configData.includes(`vlan ${j}\n`)) {
+              isYellow = true;
+              break;
+            }
+          }
+          if (isYellow) {
+            span.css('color', 'orange');
+            span.css('cursor', 'pointer');
+            span.on('click', (function(vlan) {
+              return function() {
+                alert('At least one VLAN in the range ' + vlan + ' is not configured.\nEx. (config)# vlan ' + vlan);
+              };
+            })(vlan));
+          }
+        } else if (!configData.includes(`vlan ${vlan}\n`)) { 
           span.css('color', 'red'); 
           span.css('cursor', 'pointer');
-          span.on('click', function () {
-            alert('Vlan ' + vlan + ' is not configured.\nEx. (config)# vlan ' + vlan);
-          });
+          span.on('click', (function(vlan) {
+            return function() {
+              alert('Vlan ' + vlan + ' is not configured.\nEx. (config)# vlan ' + vlan);
+            };
+          })(vlan));
         }
         span.text(vlan + (i !== vlans.length - 1 ? ', ' : ''));
         td.append(span);
