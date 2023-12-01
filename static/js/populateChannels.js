@@ -91,6 +91,7 @@ function doPortchannels(configData) {
       row.append(td);
 
       $('#section-portchannels tbody').append(row);
+      
     });
   }
 
