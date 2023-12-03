@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta name="description" content="View your Cisco IOS configs visually and detect bugs for cleanup! All done locally on your computer, no server side!">
+  <meta name="description"
+    content="View your Cisco IOS configs visually and detect bugs for cleanup! All done locally on your computer, no server side!">
   <title>ConfigConsult.com</title>
+  <meta property="og:title" content="ConfigConsult.com" />
+  <meta property="og:description" content="View your Cisco IOS configs visually and detect bugs for cleanup! All done locally on your computer, no server side!" />
+  <meta property="og:image" content="https://configconsult.com/static/icons/banner.jpeg" />
+  <meta property="og:url" content="https://configconsult.com" />
+  <meta property="og:type" content="website" />
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
-    $(document).ready(function() {
-      $.get("/templates/index.html", function(data) {
+    $(document).ready(function () {
+      $.get("/templates/index.html", function (data) {
         document.documentElement.innerHTML = data;
-        Array.from(document.getElementsByTagName('script')).forEach(function(script) {
+        Array.from(document.getElementsByTagName('script')).forEach(function (script) {
           if (script.src) {
             var newScript = document.createElement('script');
             newScript.src = script.src;
@@ -21,6 +29,8 @@
     });
   </script>
 </head>
+
 <body>
 </body>
+
 </html>
